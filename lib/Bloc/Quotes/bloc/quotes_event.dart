@@ -5,7 +5,11 @@ abstract class QuotesEvent {}
 
 class QuotesEventLoad extends QuotesEvent {
   final String query;
-  QuotesEventLoad({this.query = ''});
+  QuotesEventLoad({this.query = 'albert-einstein'});
+}
+class allQuotesEventLoad extends QuotesEvent {
+  final String query;
+  allQuotesEventLoad({this.query = 'albert-einstein'});
 }
 
 class QuotesEventRefresh extends QuotesEvent {}

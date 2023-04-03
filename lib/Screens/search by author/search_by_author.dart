@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quote/Bloc/Quotes/bloc/quotes_bloc.dart';
+import 'package:quote/Bloc/favourite/bloc/favourite_bloc.dart';
 
 class SearchByAuthor extends StatelessWidget {
   const SearchByAuthor({super.key});
@@ -27,32 +28,43 @@ class SearchByAuthor extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                TextFormField(
-                  controller: searchcontroller,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.name,
-                  textAlign: TextAlign.start,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black,
+                Row(
+                  children: [
+                    Flexible(
+                      child: TextFormField(
+                        controller: searchcontroller,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.name,
+                        textAlign: TextAlign.start,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Search',
+                        ),
+                      ),
                     ),
-                    hintText: 'Search',
-                  ),
+                    IconButton(
+                        onPressed: () {
+                          context.read<QuotesBloc>().add(QuotesEventLoad(
+                              query: searchcontroller.text.isEmpty
+                                  ? "albert-einstein"
+                                  : searchcontroller.text.toString()));
+                        },
+                        icon: const Icon(Icons.search))
+                  ],
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 BlocBuilder<QuotesBloc, QuotesState>(
                   builder: (context, state) {
-                    if (state is QuotesInitial) {
-                      context.read<QuotesBloc>().add(QuotesEventLoad(
-                          query: searchcontroller.text.isEmpty
-                              ? "Einstein"
-                              : searchcontroller.text));
-                    } else if (state is QuotesLoading) {
+                    if (state is QuotesLoading) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is QuotesLoaded) {
+                      final quote = state.quotes.results!;
+
                       return Container(
                           width: MediaQuery.of(context).size.width,
                           height: 300,
@@ -79,14 +91,21 @@ class SearchByAuthor extends StatelessWidget {
                                     ),
                                     IconButton(
                                         onPressed: () {
-                                          context.read<QuotesBloc>().add(
-                                              QuotesEventLoad(
-                                                  query: searchcontroller
-                                                          .text.isEmpty
-                                                      ? "Einstein"
-                                                      : searchcontroller.text));
+                                          BlocProvider.of<FavouriteBloc>(
+                                                  context)
+                                              .add(AddtoFavourite(
+                                                  quotes: state
+                                                      .quotes.results!.first));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text("Added to Favourite"),
+                                          ));
                                         },
-                                        icon: const Icon(Icons.favorite))
+                                        icon: const Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                          size: 30,
+                                        ))
                                   ],
                                 ),
                                 SizedBox(
@@ -96,10 +115,28 @@ class SearchByAuthor extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 15.0),
                                   child: Flexible(
                                     child: Text(
-                                        state.quotes.results!.toString(),
+                                        quote.isEmpty
+                                            ? "No Data found"
+                                            : quote.first.content.toString(),
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             fontSize: 25,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15.0),
+                                  child: Flexible(
+                                    child: Text(
+                                        quote.isEmpty
+                                            ? ""
+                                            : "Author : ${quote.first.author.toString()}",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            fontSize: 15,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                 ),
@@ -132,7 +169,7 @@ class SearchByAuthor extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
                                 child: Flexible(
-                                  child: Text("",
+                                  child: Text("No Data",
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                           fontSize: 25,

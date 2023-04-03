@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quote/Screens/all%20quotes/all_quotes.dart';
+import 'package:quote/Screens/favourite/favourite_screen.dart';
 
 import '../../Bloc/Quotes/bloc/quotes_bloc.dart';
 import '../search by author/search_by_author.dart';
@@ -72,6 +73,13 @@ class Homepage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const FavouriteQuotes();
+                          },
+                        ));
+                      },
                       child: CategoryCard(
                         categoryname: " Favoirte Quotes",
                         categoryImage: "assets/images/favourite.png",

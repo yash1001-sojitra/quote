@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quote/Bloc/Quotes/Repo/quote_repo.dart';
 import 'package:quote/Screens/HomeScreen/home_screen.dart';
-
 import 'Bloc/Quotes/bloc/quotes_bloc.dart';
+import 'Bloc/favourite/bloc/favourite_bloc.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => QuotesBloc(QuotesRepo())),
+        BlocProvider(create: (context) => FavouriteBloc()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

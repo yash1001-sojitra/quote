@@ -6,15 +6,14 @@ class QuotesRepo {
   Dio _dio = Dio();
   Future<QuotesModel> getQuotesbyAuthor(String query) async {
     final response =
-        await _dio.get('https://api.quotable.io/search/authors?query=$query');
+        await _dio.get('https://api.quotable.io/quotes?author=$query');
 
-    response.data['results'];
     return QuotesModel.fromMap(response.data);
   }
 
-  Future<QuotesModel> getAllQuotes(String query) async {
+  Future<QuotesModel> getAllQuotes(String query, int pageid) async {
     final response = await _dio
-        .get('https://api.quotable.io/search/quotes?query=$query&limit=10');
+        .get('https://api.quotable.io/quotes?quotes=$query&page=$pageid');
 
     response.data['results'];
     return QuotesModel.fromMap(response.data);

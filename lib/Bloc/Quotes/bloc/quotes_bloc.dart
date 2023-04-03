@@ -23,6 +23,15 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
           emit(QuotesError(message: e.toString()));
         }
       }
+      if (event is allQuotesEventLoad) {
+        emit(QuotesLoading());
+        try {
+          final quote = await _quotesRepo.getAllQuotes(event.query, 1);
+          emit(QuotesLoaded(quotes: quote));
+        } catch (e) {
+          emit(QuotesError(message: e.toString()));
+        }
+      }
     });
   }
 }
