@@ -20,15 +20,7 @@ class Homepage extends StatelessWidget {
             'Quote Mobile App',
             style: TextStyle(color: Colors.black),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-            ),
-          ],
+          actions: [],
         ),
         body: Column(
           children: [

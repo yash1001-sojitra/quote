@@ -11,11 +11,10 @@ class QuotesRepo {
     return QuotesModel.fromMap(response.data);
   }
 
-  Future<QuotesModel> getAllQuotes(String query, int pageid) async {
-    final response = await _dio
-        .get('https://api.quotable.io/quotes?quotes=$query&page=$pageid');
+  Future<QuotesModel> getAllQuotes(String query, int pageid, int limit) async {
+    final response = await _dio.get(
+        'https://api.quotable.io/quotes?quotes=$query&page=$pageid&limit=$limit');
 
-    response.data['results'];
     return QuotesModel.fromMap(response.data);
   }
 }

@@ -9,7 +9,8 @@ class QuotesEventLoad extends QuotesEvent {
 }
 class allQuotesEventLoad extends QuotesEvent {
   final String query;
-  allQuotesEventLoad({this.query = 'albert-einstein'});
+  final int limit;
+  allQuotesEventLoad(this.limit, {this.query = 'albert-einstein'});
 }
 
 class QuotesEventRefresh extends QuotesEvent {}

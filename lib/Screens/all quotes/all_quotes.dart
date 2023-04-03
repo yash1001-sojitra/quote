@@ -6,13 +6,26 @@ import 'package:quote/Bloc/Quotes/bloc/quotes_bloc.dart';
 
 import '../../Bloc/favourite/bloc/favourite_bloc.dart';
 
-class AllQuotes extends StatelessWidget {
+class AllQuotes extends StatefulWidget {
   const AllQuotes({super.key});
 
   @override
+  State<AllQuotes> createState() => _AllQuotesState();
+}
+
+class _AllQuotesState extends State<AllQuotes> {
+  int val = 10;
+  TextEditingController searchcontroller = TextEditingController();
+  List<DropdownMenuItem> dropdownButton = List.generate(100, (index) {
+    return DropdownMenuItem<int>(
+      child: Text("$index"),
+      value: index,
+    );
+  });
+  @override
   Widget build(BuildContext context) {
-    TextEditingController searchcontroller = TextEditingController();
-    BlocProvider.of<QuotesBloc>(context).add(allQuotesEventLoad(query: "love"));
+    BlocProvider.of<QuotesBloc>(context)
+        .add(allQuotesEventLoad(query: "love", 10));
     return Scaffold(
         appBar: AppBar(
           title: const Text("Search any quotes"),
@@ -42,11 +55,32 @@ class AllQuotes extends StatelessWidget {
                       onPressed: () {
                         BlocProvider.of<QuotesBloc>(context).add(
                             allQuotesEventLoad(
+                                10,
                                 query: searchcontroller.text.isEmpty
                                     ? "love"
                                     : searchcontroller.text.toString()));
                       },
                       icon: const Icon(Icons.search))
+                ],
+              ),
+              Row(
+                children: [
+                  Text("set Limit : "),
+                  DropdownButton(
+                    items: dropdownButton.toList(),
+                    onChanged: (value) {
+                      val = value;
+                      setState(() {
+                        val;
+                      });
+                      BlocProvider.of<QuotesBloc>(context).add(
+                          allQuotesEventLoad(value!,
+                              query: searchcontroller.text.isEmpty
+                                  ? "love"
+                                  : searchcontroller.text.toString()));
+                    },
+                    value: val,
+                  )
                 ],
               ),
               SizedBox(
