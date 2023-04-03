@@ -57,7 +57,7 @@ class _FavouriteQuotesState extends State<FavouriteQuotes> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           BlocBuilder<FavouriteBloc, FavouriteState>(
@@ -114,17 +114,17 @@ class _FavouriteQuotesState extends State<FavouriteQuotes> {
 
   updatemodel(context, TextEditingController contentcontroller, int ind) {
     return showModalBottomSheet(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(10), topRight: Radius.circular(10))),
         context: context,
         builder: (context) {
           return Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                Text("Update Quote"),
-                SizedBox(
+                const Text("Update Quote"),
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -132,7 +132,7 @@ class _FavouriteQuotesState extends State<FavouriteQuotes> {
                   keyboardType: TextInputType.multiline,
                   decoration: const InputDecoration(
                       hintText: 'Content',
-                      border: const OutlineInputBorder(
+                      border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(8),
                         ),
@@ -142,7 +142,7 @@ class _FavouriteQuotesState extends State<FavouriteQuotes> {
                       copy: true, paste: true, selectAll: true, cut: true),
                   maxLines: null,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
