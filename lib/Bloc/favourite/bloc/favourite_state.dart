@@ -19,12 +19,7 @@ class FavouriteError extends FavouriteState {
 
 class FavouriteEmpty extends FavouriteState {}
 
-// class AddtoFavouriteState extends FavouriteState {
-//   final QuotesModel quotes;
-//   AddtoFavouriteState({required this.quotes});
-// }
-
-// class RemovefromFavouriteState extends FavouriteState {
-//   final QuotesModel quotes;
-//   RemovefromFavouriteState({required this.quotes});
-// }
+class updateData extends FavouriteState {
+  final String quotes;
+  updateData({required this.quotes});
+}

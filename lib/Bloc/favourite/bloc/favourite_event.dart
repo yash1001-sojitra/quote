@@ -21,3 +21,12 @@ class SearchQuotesEvent extends FavouriteEvent {
   final String query;
   SearchQuotesEvent({required this.query});
 }
+
+class UpdateQuotesEvent extends FavouriteEvent {
+  int index;
+  final String quotes;
+  UpdateQuotesEvent({
+    required this.index,
+    required this.quotes,
+  });
+}

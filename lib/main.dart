@@ -5,7 +5,7 @@ import 'package:quote/Screens/HomeScreen/home_screen.dart';
 import 'Bloc/Quotes/bloc/quotes_bloc.dart';
 import 'Bloc/favourite/bloc/favourite_bloc.dart';
 
-void main() async {
+void main() {
   runApp(const MyApp());
 }
 

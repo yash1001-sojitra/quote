@@ -40,6 +40,11 @@ class FavouriteBloc extends Bloc<FavouriteEvent, FavouriteState> {
                   .contains(event.query.toString().toLowerCase());
         }).toList();
         emit(FavouriteLoaded(quotes: searchResults));
+      } else if (event is UpdateQuotesEvent) {
+        emit(FavouriteLoading());
+        listquotes.elementAt(event.index).content = event.quotes;
+
+        emit(FavouriteLoaded(quotes: listquotes));
       }
     });
   }
