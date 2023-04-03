@@ -48,6 +48,7 @@ class SearchByAuthor extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           context.read<QuotesBloc>().add(QuotesEventLoad(
+                              Random().nextInt(5),
                               query: searchcontroller.text.isEmpty
                                   ? "albert-einstein"
                                   : searchcontroller.text.toString()));

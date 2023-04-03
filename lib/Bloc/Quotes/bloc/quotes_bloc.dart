@@ -17,7 +17,7 @@ class QuotesBloc extends Bloc<QuotesEvent, QuotesState> {
       if (event is QuotesEventLoad) {
         emit(QuotesLoading());
         try {
-          final quote = await _quotesRepo.getQuotesbyAuthor(event.query);
+          final quote = await _quotesRepo.getQuotesbyAuthor(event.query , event.page);
           emit(QuotesLoaded(quotes: quote));
         } catch (e) {
           emit(QuotesError(message: e.toString()));

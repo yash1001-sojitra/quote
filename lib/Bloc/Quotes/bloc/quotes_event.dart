@@ -5,7 +5,8 @@ abstract class QuotesEvent {}
 
 class QuotesEventLoad extends QuotesEvent {
   final String query;
-  QuotesEventLoad({this.query = 'albert-einstein'});
+  final int page;
+  QuotesEventLoad(this.page, {this.query = 'albert-einstein'});
 }
 class allQuotesEventLoad extends QuotesEvent {
   final String query;
