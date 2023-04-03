@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quote/Bloc/Quotes/Repo/quote_repo.dart';
+import 'package:quote/Screens/HomeScreen/home_screen.dart';
+
+import 'Bloc/Quotes/bloc/quotes_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +20,16 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [],
-      child: Container(),
-    )();
+      providers: [
+        BlocProvider(create: (context) => QuotesBloc(QuotesRepo())),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Quote Mobile App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const Homepage()),
+    );
   }
 }
